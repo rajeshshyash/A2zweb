@@ -157,7 +157,7 @@ $(document).ready(function(){
                                     
                                     <label for="usernamesignup" class="lastName">Last Name</label>
                                     <input id="usernamesignup" name="lastName" required="required" type="text" placeholder="Last Name" />
-                             </p>
+                              </p>
                                 <p> 
                                     <label for="usernamesignup" class="uname">Your username</label>
                                     <input  id="usernamesignup" name="username" required="required" type="text" placeholder="mysuperusername690" />
