@@ -11,23 +11,13 @@ import com.a2z.domain.PhysicalDetails;
 import com.a2z.domain.User;
 import com.a2z.domain.UserProfile;
 import com.a2z.service.UserProfileService;
+import com.a2z.service.UserService;
 
 @Controller
 public class UserProfileController {
 	
 	@Autowired
 	private UserProfileService userProfileServiceTO;
-	
-	/*@RequestMapping(value="/saveUserPersonalInfo", method = RequestMethod.POST)
-    public ModelAndView saveUserPersonalInfo(@ModelAttribute UserProfile userProfile,@ModelAttribute User user) {
-        if(userProfile.getUserPersonalInfoId() == null){ 
-        	userProfileServiceTO.saveUserPersonalInfo(userProfile);
-        } else {
-        	userProfileServiceTO.updateUserAccount(user);
-        }
-        return new ModelAndView("redirect:userProfile");
-    }*/
-	
 	
 	@RequestMapping(value = "/saveUserPersonalInfo", method = RequestMethod.POST)
     public String saveUserPersonalInfo(@ModelAttribute("userProfileForm") UserProfile userProfile, Model model) {
@@ -36,8 +26,22 @@ public class UserProfileController {
         return "redirect:/login";
     }
 	
-	@RequestMapping(value = "/saveUserDetailsInfo", method = RequestMethod.POST)
-    public String saveUserDetailsInfo(@ModelAttribute("userProfileDetailsForm") PhysicalDetails physicalDetails, Model model) {
+	@RequestMapping(value = "/saveUserAddressInfo", method = RequestMethod.POST)
+    public String saveUserAddressInfo(@ModelAttribute("userAddressForm") UserProfile userProfile, Model model) {
+		userProfileServiceTO.userPersonalInfo(userProfile);
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        return "redirect:/login";
+    }
+	
+	@RequestMapping(value = "/saveUserPhyDetailsInfo", method = RequestMethod.POST)
+    public String saveUserPhyDetailsInfo(@ModelAttribute("userPhyDetailsForm") PhysicalDetails physicalDetails, Model model) {
+		userProfileServiceTO.userPhysicalDetailsInfo(physicalDetails);
+        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        return "redirect:/login";
+    }
+	
+	@RequestMapping(value = "/saveUserExpDetailsInfo", method = RequestMethod.POST)
+    public String saveUserExpDetailsInfo(@ModelAttribute("userPhyExpForm") PhysicalDetails physicalDetails, Model model) {
 		userProfileServiceTO.userPhysicalDetailsInfo(physicalDetails);
         //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
         return "redirect:/login";

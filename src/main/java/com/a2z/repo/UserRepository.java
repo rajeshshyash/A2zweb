@@ -6,4 +6,5 @@ import com.a2z.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
+    User findById(Long id);
 }

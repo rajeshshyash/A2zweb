@@ -26,6 +26,7 @@ public class UserController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
+    	
         model.addAttribute("userForm", new User());
 
         return "registration";
@@ -38,21 +39,11 @@ public class UserController {
         return "signup";
     }
     
-    /*@RequestMapping(value = "/saveProfession", method = RequestMethod.POST)
-    public String saveProfession(@ModelAttribute("userForm") User userForm, Model model) {
-        userService.save(userForm);
-        return "saveProfession";
-    }*/
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-    public String registration(@ModelAttribute("userForm") User userForm, Model model) {
-       // userValidator.validate(userForm);
-
-        /*if (bindingResult.hasErrors()) {
-            return "registration";
-        }*/
-        userService.save(userForm);
-        securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+    public String registration(@ModelAttribute("userForm") User user, Model model) {
+        userService.save(user);
+        securityService.autologin(user.getUsername(), user.getPasswordConfirm());
         return "redirect:/welcome";
     }
 

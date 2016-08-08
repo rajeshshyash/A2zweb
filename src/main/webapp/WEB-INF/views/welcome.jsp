@@ -11,17 +11,21 @@
     <title>User Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" type="text/css" href="${contextid}/resources/css/profile.css" />
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
     <style type="text/css">
         .myrow-container{
             margin: 5px;
         }
     </style>
+    
 </head>
 <body class=".container-fluid">
     <div class="myrow-container">
         <div class="panel panel-success">
-            <div class="panel-heading">
-                <h3 class="panel-title">
+            <!-- <div class="panel-heading"> -->
+            <div class="navbar topnavbar panel-heading">
+            <div class="nav-wrapper">
+            <h3 class="panel-title">
                     Welcome to : ${pageContext.request.userPrincipal.name}
                 </h3>
 	                <c:if test="${pageContext.request.userPrincipal.name != null}">
@@ -29,17 +33,54 @@
 		                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		                </form>
 	                </c:if>
-                 <fieldset>
-				        <button type="submit" onclick="document.forms['logoutForm'].submit()" class="mb-sm btn btn-success pull-right">Logout</button>
-				</fieldset>
+               <!-- START Right Navbar-->
+               <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown dropdown-list" data-placement="bottom">
+                    <a href="#" data-toggle="dropdown" aria-expanded="false" >
+                        <img src="${contextid}/resources/images/rajeshsmall.JPG"
+                             class="media-box-object img-circle thumb24 profile-pic" data-toggle="tooltip" title=""  data-placement="bottom">
+                    </a>
+                    <!-- START Dropdown menu-->
+                    <ul class="dropdown-menu animated fadeIn">
+                        <li>
+                            <div class="list-group">
+                                    <div class="media-box">
+                                    <!-- <a href="" class="list-group-item" style="border-bottom: 0;"> -->
+                                        <div class="pull-left"  data-toggle="tooltip"  data-placement="bottom" title="" data-original-title="View Profile">
+                                            <img src="${contextid}/resources/images/rajeshsmall.JPG" class="media-box-object img-circle thumb32 profile-pic">
+                                        </div>
+                                        <div class="media-box-body clearfix" >
+                                            <p class="m0 text-muted">
+                                                <small class="ml5" data-toggle="tooltip"  data-placement="bottom" title="" data-original-title="View Profile">${pageContext.request.userPrincipal.name}</small>
+                                            </p>
+                                        </div> 
+                                     <!--  </a> -->
+                                          <a  href="javascript:void(0)" class="profilechangePic"> 
+                                          <span class="ml25 label label-info pull-left" id="changePic" data-placement="bottom"  title="Click Here to Update Profile Picture" data-toggle="tooltip">Change Profile Pic</span> </a>
+                                         <input type="file" id="inputprofileImage" accept=".png,.jpg,.jpeg,.PNG,.JPG,.JPEG" class="upload hide" title="Click Here to Change Pic" data-toggle="tooltip">
+                                    </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a type="submit" onclick="document.forms['logoutForm'].submit()">
+                        <i class="fa fa-lock" style="font-size:24px;color:white"></i>
+                    </a>
+                </li>
+                 <!--  <button type="submit" onclick="document.forms['logoutForm'].submit()" class="mb-sm btn btn-success pull-right">Logout</button> -->
+                </ul>
+             </div>
             </div>
+        
         <div class="row">
            <div class="col-lg-12">
 		     <div class="col-lg-6">
-              <div class="panel panel-default">
+                <div class="panel panel-default">
+                  <h4 class="text-muted text-thin text-center">Profile Details</h4>
 	               <form id="userProfileForm" class="mb-lg" modelAttribute="userProfile" method="post" action="saveUserPersonalInfo">
                    
-                   <fieldset>
+                    <fieldset>
 						<div class="form-group has-feedback">
 							<label for="" class="text-muted col-lg-4" >Father Name</label> 
 							<input id="fatherName" name="fatherName" class="form-control" placeholder="Father Name" required minlength="2" maxlength="50" value="">
@@ -53,128 +94,131 @@
 						<div class="form-group has-feedback">
 							<label for="" class="text-muted col-lg-4">Gender</label>
 								<label for="" class="text-muted">&nbsp;</label>
-									<%-- <c:if --%>
-										<label class="radio-inline c-radio"> 
-										<input type="radio" name="gender" value="Male" checked>
-										<span class="fa fa-circle"></span>Male
-										</label>
-										<label class="radio-inline c-radio"> 
-										<input type="radio" name="gender" value="Female"> <span
-											class="fa fa-circle"></span>Female
-										</label>
-										<label class="radio-inline c-radio">
-										 <input type="radio" name="gender" value="Other"> <span
-											class="fa fa-circle"></span>Other
-										</label>
-									<%-- </c:if> --%>
-									<%-- <c:if
-										test="${loginUserProfile.user.userPersonalInfo.gender=='Female'}">
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Male"> <span
-											class="fa fa-circle"></span>Male
-										</label>
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Female" checked>
-											<span class="fa fa-circle"></span>Female
-										</label>
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Female" checked>
-											<span class="fa fa-circle"></span>Both
-										</label>
-									</c:if>
-									<c:if
-										test="${loginUserProfile.user.userPersonalInfo.gender=='Both'}">
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Male"> <span
-											class="fa fa-circle"></span>Male
-										</label>
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Female" checked>
-											<span class="fa fa-circle"></span>Female
-										</label>
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Female" checked>
-											<span class="fa fa-circle"></span>Both
-										</label>
-									</c:if>
-									<c:if
-										test="${loginUserProfile.user.userPersonalInfo.gender!='Male' && loginUserProfile.user.userPersonalInfo.gender!='Female' && loginUserProfile.user.userPersonalInfo.gender!='Both'}">
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Male"> <span
-											class="fa fa-circle"></span>Male
-										</label>
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Female" checked>
-											<span class="fa fa-circle"></span>Female
-										</label>
-										<label class="radio-inline c-radio"> <input
-											type="radio" name="gender" value="Female" checked>
-											<span class="fa fa-circle"></span>Both
-										</label>
-									</c:if> --%>
-							</div>
+									
+								<label class="radio-inline c-radio"> 
+								<input type="radio" name="gender" value="Male" checked>Male</label>
+								<label class="radio-inline c-radio"> 
+								<input type="radio" name="gender" value="Female">Female</label>
+								<label class="radio-inline c-radio">
+								 <input type="radio" name="gender" value="Other">Other
+								</label>
+									
+					    </div>
 							
 							
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Date of Birth</label> 
-								    <input id="dob" name="dob" class="form-control" placeholder="DD-MM-YYYY" required minlength="2" maxlength="50" value="">
-						        </div>
-							
-							
-							
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Age</label> 
-								    <input id="age" name="age" class="form-control" placeholder="Age" required minlength="2" maxlength="50" value="">
-						        </div>
-							
-							
-							
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Whatsapp No</label> 
-								    <input id="whatsupNum" name="whatsupNum" class="form-control" placeholder="Whatsapp No" required minlength="2" maxlength="50" value="">
-						        </div>
-							
-							
-						
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Landline No</label> 
-								    <input id="landlineNum" name="landlineNum" class="form-control" placeholder="Landline No" required minlength="2" maxlength="50" value="">
-						        </div>
-							
-							
-						
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Education / Qualification</label> 
-								    <input id="education" name="education" class="form-control" placeholder="Education / Qualification" required minlength="2" maxlength="50" value="">
-						        </div>
-							
-							
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Course Done related to film/Drama/Modeling</label> 
-								    <input id="course" name="course" class="form-control" placeholder="Course Done related to film/Drama/Modeling" required minlength="2" maxlength="50" value="">
-						        </div>
-						  </fieldset> 
-						  <fieldset>       
-								<div class="form-group has-feedback">
-								  <label for="" class="text-muted col-lg-4">Languages You know</label>
-								  <label class="fa fa-check text-muted"><input type="checkbox" name="language" value="Hindi">Hindi</label>&nbsp;
-								  <label class="fa fa-check text-muted"><input type="checkbox" name="language" value="English">English</label>&nbsp;
-								  <label class="fa fa-check text-muted"><input type="checkbox" name="language" value="Kannada">Kannada</label>&nbsp;
-								  <label class="fa fa-check text-muted"><input type="checkbox" name="language" value="Telugu">Telugu</label>&nbsp;
-							    </div> 
-						
-						        <div class="form-group has-feedback">
-								  <label for="" class="text-muted col-lg-4">Present Address :</label>
-								</div>
-			              </fieldset>
-			               <fieldset>
+						<div class="form-group has-feedback">
+							<label for="" class="text-muted col-lg-4" >Date of Birth</label> 
+							<input id="dob" name="dob" class="form-control" placeholder="DD-MM-YYYY" required minlength="2" maxlength="50" value="">
+						</div>
+					
+					
+					
+						<div class="form-group has-feedback">
+							<label for="" class="text-muted col-lg-4" >Age</label> 
+							<input id="age" name="age" class="form-control" placeholder="Age" required minlength="2" maxlength="50" value="">
+						</div>
+					
+					
+					
+						<div class="form-group has-feedback">
+							<label for="" class="text-muted col-lg-4" >Whatsapp No</label> 
+							<input id="whatsupNum" name="whatsupNum" class="form-control" placeholder="Whatsapp No" required minlength="2" maxlength="50" value="">
+						</div>
+					
+					
+				
+						<div class="form-group has-feedback">
+							<label for="" class="text-muted col-lg-4" >Landline No</label> 
+							<input id="landlineNum" name="landlineNum" class="form-control" placeholder="Landline No" required minlength="2" maxlength="50" value="">
+						</div>
+					
+					
+				
+						<div class="form-group has-feedback">
+							<label for="" class="text-muted col-lg-4" >Education / Qualification</label> 
+							<input id="education" name="education" class="form-control" placeholder="Education / Qualification" required minlength="2" maxlength="50" value="">
+						</div>
+					
+					
+						<div class="form-group has-feedback">
+							<label for="" class="text-muted col-lg-4" >Course Done related to film/Drama/Modeling</label> 
+							<input id="course" name="course" class="form-control" placeholder="Course Done related to film/Drama/Modeling" required minlength="2" maxlength="50" value="">
+						</div>
+			        </fieldset> 
+				    <fieldset>       
+						<div class="form-group has-feedback">
+							  <label for="" class="text-muted col-lg-4">Languages You know</label>
+							  <label for="" class="text-muted">Language</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label for="" class="text-muted">Read</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label for="" class="text-muted">Write</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label for="" class="text-muted">Speak</label>
+						  </div>
+						 <div class="form-group has-feedback">
+							  <label for="" class="text-muted col-lg-4"></label>
+							  <input id="language" name="language" class="form-control-widths col-lg-2" placeholder="" required minlength="2" maxlength="50" value="Hindi">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Read"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Write"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Speak"></label>
+						  <!-- <button type="button" id="addLanguageSlot" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i></button> -->
+						  </div>								  
+				    </fieldset>
+				    
+				    <fieldset>
+	                      <div class="form-group has-feedback">
+						      <label for="" class="text-muted col-lg-4"></label>
+							  <input id="language" name="language" class="form-control-widths col-lg-2" placeholder="" required minlength="2" maxlength="50" value="English">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Read"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Write"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Speak"></label>
+						  </div>	
+			        </fieldset>
+			        
+			        <fieldset>
+	                      <div class="form-group has-feedback">
+						      <label for="" class="text-muted col-lg-4"></label>
+							  <input id="language" name="language" class="form-control-widths col-lg-2" placeholder="" required minlength="2" maxlength="50" value="Telugu">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Telugu"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Telugu"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Telugu"></label>
+						  </div>
+								  	
+			         </fieldset>
+			              
+			         <fieldset>
+	                      <div class="form-group has-feedback">
+						      <label for="" class="text-muted col-lg-4"></label>
+							  <input id="language" name="language" class="form-control-widths col-lg-2" placeholder="" required minlength="2" maxlength="50" value="Kannada">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Kannada"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Kannada"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							  <label class=" text-muted"><input type="checkbox" name="language" value="Kannada"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+							  <button type="button" id="addLanguageSlot" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+						  </div>
+			         </fieldset>
+			              
+			              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		                    <div class="form-group">
+		                        <div class="row">
+		                            <div class="col-xs-7">
+		                            </div>
+		                            <div class="col-xs-4">
+		                            <input type="submit" id="saveUserPersonalInfo" class="btn btn-success" value="Update"/>
+		                            </div>
+		                        </div>
+		                    </div>
+                    </form>
+                </div>
+                
+                <div class="panel panel-default">
+                    <h4 class="text-muted text-thin text-center">Present Address</h4>
+                      <form id="userAddressForm" class="mb-lg" modelAttribute="userProfile" method="post" action="saveUserAddressInfo">
+                              <fieldset>
 								<div class="form-group has-feedback">
 									<label for="" class="text-muted col-lg-4">Address</label>
 									<textarea name="localAddress" id="localAddress" placeholder="Address" class="form-control" maxlength="500"
 									style="overflow: auto; resize: none" rows="4"
 									aria-invalid="false"></textarea>
 								</div>
-								
+							
 								 <div class="form-group has-feedback">
 									  <label for="" class="text-muted col-lg-4">Country</label>
 									  <select id="localCountry" name="localCountry" class="form-control m-b">
@@ -186,93 +230,92 @@
 											<option value="Andorra">Andorra</option>
 											<option value="Angola">Angola</option>
 									  </select>
-								</div>
-								
+								 </div>
+							
 								<div class="form-group has-feedback">
 								    <label for="" class="text-muted col-lg-4" >State</label> 
 								    <input id="localState" name="localState" class="form-control" placeholder="State" required minlength="2" maxlength="50" value="">
 						        </div>
-						        
+					        
 						        <div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >City</label> 
-								    <input id="localCity" name="localCity" class="form-control" placeholder="City" required minlength="2" maxlength="50" value="">
+								    <label for="" class="text-muted col-lg-4" >District</label> 
+								    <input id="localCity" name="localCity" class="form-control" placeholder="District" required minlength="2" maxlength="50" value="">
 						        </div>
-						        
+					        
 						        <div class="form-group has-feedback">
 								    <label for="" class="text-muted col-lg-4" >Zipcode/Postalcode</label> 
 								    <input id="localZipPostalCode" name="localZipPostalCode" class="form-control" placeholder="Zipcode/Postalcode" required minlength="2" maxlength="50" value="">
 						        </div>
-						        
-						        <div class="form-group has-feedback">
-								  <label for="" class="text-muted col-lg-4">Permanent  Address :</label>
-								</div>
-								
-						   </fieldset>
-						   
-						   <fieldset>
-						    	<div class="form-group has-feedback">
-									<label for="" class="text-muted col-lg-4">Address</label>
-									<textarea name="permaAddress" id="permaAddress" placeholder="Address" class="form-control" maxlength="500"
-									style="overflow: auto; resize: none" rows="4"
-									aria-invalid="false"></textarea>
-								</div>
-								
-								
-								 <div class="form-group has-feedback">
-									  <label for="" class="text-muted col-lg-4">Country</label>
-									  <select id="parmaCountry" name="parmaCountry" class="form-control m-b ">
-									        <option  value="India" selected="selected">India</option>
-									        <option value="Afghanistan" >Afghanistan</option>
-											<option value="Aland Islands">Aland Islands</option>
-											<option value="Albania">Albania</option>
-											<option value="Algeria">Algeria</option>
-											<option value="Andorra">Andorra</option>
-											<option value="Angola">Angola</option>
-									  </select>
-								</div>
-								
-								<div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >State</label> 
-								    <input id="permaState" name="permaState" class="form-control" placeholder="State" required minlength="2" maxlength="50" value="">
-						        </div>
-						        
-						        <div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >City</label> 
-								    <input id="permaCity" name="permaCity" class="form-control" placeholder="City" required minlength="2" maxlength="50" value="">
-						        </div>
-						        
-						         <div class="form-group has-feedback">
-								    <label for="" class="text-muted col-lg-4" >Zipcode/Postalcode</label> 
-								    <input id="permaZipPostalCode" name="permaZipPostalCode" class="form-control" placeholder="Zipcode/Postalcode" required minlength="2" maxlength="50" value="">
-						        </div>
-						        
-						        <div class="form-group has-feedback">
-									<label for="" class="text-muted col-lg-4">Comment</label>
-									<textarea name="comment" id="comment" placeholder="Comment" class="form-control" maxlength="500"
-									style="overflow: auto; resize: none" rows="3"
-									aria-invalid="false"></textarea>
-								</div>
-						        
-						        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						        
-						   </fieldset>
-						   
-		                    <div class="form-group">
-		                        <div class="row">
-		                            <div class="col-xs-7">
-		                            </div>
-		                            <div class="col-xs-4">
-		                            <input type="submit" id="saveUserPersonalInfo" class="btn btn-success" value="Update"/>
-		                            </div>
-		                        </div>
-		                    </div>
-    
-                      </form>
-			   </div>
-			   </div>
-			   <div class="col-lg-6">
-			   
-			   <form id="userProfileDetailsForm" cssClass="form-horizontal" modelAttribute="userProfileDetails" method="post" action="saveUserDetailsInfo">
+					   	</fieldset>
+					   	
+						   <h4 class="text-muted text-thin text-center">Permanent  Address</h4> 
+					   	
+					   	<fieldset>
+					    	<div class="form-group has-feedback">
+								<label for="" class="text-muted col-lg-4">Address</label>
+								<textarea name="permaAddress" id="permaAddress" placeholder="Address" class="form-control" maxlength="500"
+								style="overflow: auto; resize: none" rows="4"
+								aria-invalid="false"></textarea>
+							</div>
+							
+							
+							 <div class="form-group has-feedback">
+								  <label for="" class="text-muted col-lg-4">Country</label>
+								  <select id="parmaCountry" name="parmaCountry" class="form-control m-b ">
+								        <option  value="India" selected="selected">India</option>
+								        <option value="Afghanistan" >Afghanistan</option>
+										<option value="Aland Islands">Aland Islands</option>
+										<option value="Albania">Albania</option>
+										<option value="Algeria">Algeria</option>
+										<option value="Andorra">Andorra</option>
+										<option value="Angola">Angola</option>
+								  </select>
+							</div>
+							
+							<div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-4" >State</label> 
+							    <input id="permaState" name="permaState" class="form-control" placeholder="State" required minlength="2" maxlength="50" value="">
+					        </div>
+					        
+					        <div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-4" >District</label> 
+							    <input id="permaCity" name="permaCity" class="form-control" placeholder="District" required minlength="2" maxlength="50" value="">
+					        </div>
+					        
+					         <div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-4" >Zipcode/Postalcode</label> 
+							    <input id="permaZipPostalCode" name="permaZipPostalCode" class="form-control" placeholder="Zipcode/Postalcode" required minlength="2" maxlength="50" value="">
+					        </div>
+					        
+					        <div class="form-group has-feedback">
+								<label for="" class="text-muted col-lg-4">Comment</label>
+								<textarea name="comment" id="comment" placeholder="Comment" class="form-control" maxlength="500"
+								style="overflow: auto; resize: none" rows="3"
+								aria-invalid="false"></textarea>
+							</div>
+					        
+					        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					     </fieldset>
+                         <div class="form-group">
+	                        <div class="row">
+	                            <div class="col-xs-7">
+	                            </div>
+	                            <div class="col-xs-4">
+	                            <input type="submit" id="saveUserPersonalInfo" class="btn btn-success" value="Update"/>
+	                            </div>
+	                        </div>
+                       </div>
+                   </form>
+               </div>
+                
+		     </div>
+			         
+			<!-- ========================================Physical Details================================          -->
+			         
+			<div class="col-lg-6">
+			   <div class="panel panel-default">
+                 <h4 class="text-muted text-thin text-center">Physical Details</h4>
+			     <form id="userPhyDetailsForm" cssClass="form-horizontal" modelAttribute="userPhyDetails" method="post" action="saveUserPhyDetailsInfo">
                     <fieldset>
 						<div class="form-group has-feedback">
 							<label for="" class="text-muted col-lg-2 ">Complexion</label> 
@@ -389,42 +432,7 @@
 									<option value="Long" >Long</option>
 						    </select>
 						</div>		
-						
-				    </fieldset>
-				    
-				    <fieldset>
-				        <div class="form-group has-feedback">
-						    <label for="" class="text-muted col-lg-6" >The Film Industry Worked in previously</label> 
-						    <input id="filmIndworkPre" name="filmIndworkPre" class="form-control-text col-lg-2" placeholder="The Film Industry Worked in previously" required minlength="2" maxlength="50" value="">
-						</div>
-						
-						<div class="form-group has-feedback">
-						    <label for="" class="text-muted col-lg-6" >Name the Director you worked with</label> 
-						    <input id="directorPre" name="directorPre" class="form-control-text col-lg-2" placeholder="Name the Director you worked with" required minlength="2" maxlength="50" value="">
-						</div>
-						
-						<div class="form-group has-feedback">
-						    <label for="" class="text-muted col-lg-6" >Name the Films worked in</label> 
-						    <input id="filmName" name="filmName" class="form-control-text col-lg-2" placeholder="Name the Films worked in" required minlength="2" maxlength="50" value="">
-						</div>
-						
-						<div class="form-group has-feedback">
-						    <label for="" class="text-muted col-lg-6" >Name the Production House you worked for</label> 
-						    <input id="phouseName" name="phouseName" class="form-control-text col-lg-2" placeholder="Name the Production House you worked for" required minlength="2" maxlength="50" value="">
-						</div>
-				    </fieldset>
-				    
-				    <fieldset>
-						<div class="form-group has-feedback">
-						    <label for="" class="text-muted col-lg-6" >Film Industry Intested in now</label> 
-						    <input id="filmIndInterest" name="filmIndInterest" class="form-control-text col-lg-2" placeholder="Film Industry Intested in now" required minlength="2" maxlength="50" value="">
-						</div>
-						
-						<div class="form-group has-feedback">
-						    <label for="" class="text-muted col-lg-6" >Why do you want to work in Film Industry</label> 
-						    <input id="whyFlimindWork" name="whyFlimindWork" class="form-control-text col-lg-2" placeholder="Why do you want to work in Film Industry" required minlength="2" maxlength="50" value="">
-						</div>
-						 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				    </fieldset>
                     <div class="form-group">
                         <div class="row">
@@ -437,15 +445,66 @@
                     </div>
                 </form>
 			   </div>
+			   
+			    <div class="panel panel-default">
+                 <h4 class="text-muted text-thin text-center">Work Experience Details</h4>
+	                  <form id="userPhyExpForm" cssClass="form-horizontal" modelAttribute="userExpDetails" method="post" action="saveUserExpDetailsInfo">
+	                 <fieldset>
+					        <div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-6" >The Film Industry Worked in previously</label> 
+							    <input id="filmIndworkPre" name="filmIndworkPre" class="form-control-text col-lg-2" placeholder="The Film Industry Worked in previously" required minlength="2" maxlength="50" value="">
+							</div>
+							
+							<div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-6" >Name the Director you worked with</label> 
+							    <input id="directorPre" name="directorPre" class="form-control-text col-lg-2" placeholder="Name the Director you worked with" required minlength="2" maxlength="50" value="">
+							</div>
+							
+							<div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-6" >Name the Films worked in</label> 
+							    <input id="filmName" name="filmName" class="form-control-text col-lg-2" placeholder="Name the Films worked in" required minlength="2" maxlength="50" value="">
+							</div>
+							
+							<div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-6" >Name the Production House you worked for</label> 
+							    <input id="phouseName" name="phouseName" class="form-control-text col-lg-2" placeholder="Name the Production House you worked for" required minlength="2" maxlength="50" value="">
+							</div>
+					    </fieldset>
+					    
+					    <fieldset>
+							<div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-6" >Film Industry Intested in now</label> 
+							    <input id="filmIndInterest" name="filmIndInterest" class="form-control-text col-lg-2" placeholder="Film Industry Intested in now" required minlength="2" maxlength="50" value="">
+							</div>
+							
+							<div class="form-group has-feedback">
+							    <label for="" class="text-muted col-lg-6" >Why do you want to work in Film Industry</label> 
+							    <input id="whyFlimindWork" name="whyFlimindWork" class="form-control-text col-lg-2" placeholder="Why do you want to work in Film Industry" required minlength="2" maxlength="50" value="">
+							</div>
+							 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					    </fieldset>
+	                 <div class="form-group">
+	                        <div class="row">
+	                            <div class="col-xs-7">
+	                            </div>
+	                            <div class="col-xs-4">
+	                            <input type="submit" id="saveUserExpDetailsInfo" class="btn btn-success" value="Update"/>
+	                            </div>
+	                        </div>
+	                    </div>
+	                  </form>
+	                </div>
+				   </div>
+		        </div>
+		      </div>
 	         </div>
-	      </div>
-         </div>
-        </div>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-</body>
-</html>
+	       </div>
+	   
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	</body>
+	</html>
 
 <!-- =====================================1======================================== -->
 <%-- <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
