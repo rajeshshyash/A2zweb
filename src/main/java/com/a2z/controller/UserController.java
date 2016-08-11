@@ -1,5 +1,6 @@
 package com.a2z.controller;
-
+/*
+ * User Controller */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,38 +16,47 @@ import com.a2z.validation.UserValidator;
 
 @Controller
 public class UserController {
+	
+	/*
+     *  UserService for All UsesDetails methods  */
     @Autowired
     private UserService userService;
 
+    
+    /*
+     *  SecurityService for Login methods */
     @Autowired
     private SecurityService securityService;
-
-    /*@Autowired
-    private UserValidator userValidator;*/
-
+    
+    /*
+     * Call on Registration page click on login - registration.jsp  */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {
-    	
         model.addAttribute("userForm", new User());
-
         return "registration";
     }
     
+    
+    /*
+     * Call on Signup page click on Registration - signup.jsp  */
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public String regLogin(Model model) {
         model.addAttribute("userForm", new User());
-
         return "signup";
     }
     
-
+    /*
+     * SaveUser Method  */
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User user, Model model) {
         userService.save(user);
         securityService.autologin(user.getUsername(), user.getPasswordConfirm());
-        return "redirect:/welcome";
+        return "redirect:/profile";
     }
 
+    
+    /*
+     * UserLogin Method  */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -58,8 +68,10 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        return "welcome";
+    /*
+     * profilePage */
+    @RequestMapping(value = {"/", "/profile"}, method = RequestMethod.GET)
+    public String profile(Model model) {
+        return "profile";
     }
 }

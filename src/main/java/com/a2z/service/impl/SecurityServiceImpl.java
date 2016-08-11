@@ -14,6 +14,7 @@ import com.a2z.service.SecurityService;
 
 @Service
 public class SecurityServiceImpl implements SecurityService{
+	
     @Autowired
     private AuthenticationManager authenticationManager;
 

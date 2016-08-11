@@ -11,11 +11,15 @@ import com.a2z.service.UserProfileService;
 
 @Service
 public class UserProfileServiceImpl implements UserProfileService {
+	
 	@Autowired
 	private UserProfileDetailsRepository userProfileDetailsRepository;
 	
 	@Autowired
     private UserProfileRepository userProfileRepository;
+	
+	
+	
 	
 	public void userPersonalInfo(UserProfile userProfile) {
 		userProfileRepository.save(userProfile);

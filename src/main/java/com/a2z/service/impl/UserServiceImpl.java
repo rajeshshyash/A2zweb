@@ -14,12 +14,23 @@ import com.a2z.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	/*
+     *  UserRepository for Users Declared all function */
     @Autowired
     private UserRepository userRepository;
+    
+    
+    /*
+     *  RoleRepository for define user Role */
     @Autowired
     private RoleRepository roleRepository;
+    
+    /*
+     * BCryptPasswordEncoder for Password Crypt */
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
 
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -33,4 +44,5 @@ public class UserServiceImpl implements UserService {
     public User findById(Long id) {
     	return userRepository.findById(id);
     }
+    
 }
