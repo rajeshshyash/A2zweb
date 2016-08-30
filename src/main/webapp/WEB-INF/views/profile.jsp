@@ -24,28 +24,29 @@
         <div class="panel panel-success">
             <!-- <div class="panel-heading"> -->
             <div class="navbar topnavbar panel-heading">
-            <div class="nav-wrapper">
-            <h3 class="panel-title">
-                    Welcome to : ${pageContext.request.userPrincipal.name}
-                </h3>
-	                <c:if test="${pageContext.request.userPrincipal.name != null}">
+	                 <c:if test="${pageContext.request.userPrincipal.name != null}">
 		                <form id="logoutForm" method="POST" action="${contextid}/logout">
 		                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		                </form>
-	                </c:if>
+	                 </c:if>
+               
+               <ul class="nav navbar-nav navbar-left"><div>
+                   <label>Welcome to : ${pageContext.request.userPrincipal.name}</label></div>
+               </ul>
+               
                <!-- START Right Navbar-->
                <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown dropdown-list" data-placement="bottom">
                     <a href="#" data-toggle="dropdown" aria-expanded="false" >
                         <img src="${contextid}/resources/images/rajeshsmall.JPG"
-                             class="media-box-object img-circle thumb24 profile-pic" data-toggle="tooltip" title=""  data-placement="bottom">
+                         class="media-box-object img-circle thumb24 profile-pic" data-toggle="tooltip" title=""  data-placement="bottom">
                     </a>
                     <!-- START Dropdown menu-->
                     <ul class="dropdown-menu animated fadeIn">
                         <li>
                             <div class="list-group">
                                     <div class="media-box">
-                                    <!-- <a href="" class="list-group-item" style="border-bottom: 0;"> -->
+                                   
                                         <div class="pull-left"  data-toggle="tooltip"  data-placement="bottom" title="" data-original-title="View Profile">
                                             <img src="${contextid}/resources/images/rajeshsmall.JPG" class="media-box-object img-circle thumb32 profile-pic">
                                         </div>
@@ -54,7 +55,7 @@
                                                 <small class="ml5" data-toggle="tooltip"  data-placement="bottom" title="" data-original-title="View Profile">${pageContext.request.userPrincipal.name}</small>
                                             </p>
                                         </div> 
-                                     <!--  </a> -->
+                                  
                                           <a  href="javascript:void(0)" class="profilechangePic"> 
                                           <span class="ml25 label label-info pull-left" id="changePic" data-placement="bottom"  title="Click Here to Update Profile Picture" data-toggle="tooltip">Change Profile Pic</span> </a>
                                          <input type="file" id="inputprofileImage" accept=".png,.jpg,.jpeg,.PNG,.JPG,.JPEG" class="upload hide" title="Click Here to Change Pic" data-toggle="tooltip">
@@ -70,7 +71,6 @@
                 </li>
                  <!--  <button type="submit" onclick="document.forms['logoutForm'].submit()" class="mb-sm btn btn-success pull-right">Logout</button> -->
                 </ul>
-             </div>
             </div>
         
         <div class="row">

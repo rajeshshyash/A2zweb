@@ -15,10 +15,10 @@ public class User {
     private Long mobile;
     private String password;
     private String passwordConfirm;
-    /*private String profession;
+    private String profession;
     private String actorType;
     private String backSupportTeam;
-    private String regAgency;*/
+    private String regAgency;
     private Set<Role> roles;
 
     @Id
@@ -98,7 +98,7 @@ public class User {
         this.roles = roles;
     }
 
-	/*public String getProfession() {
+	public String getProfession() {
 		return profession;
 	}
 
@@ -128,7 +128,7 @@ public class User {
 
 	public void setRegAgency(String regAgency) {
 		this.regAgency = regAgency;
-	}*/
+	}
     
     
 }
